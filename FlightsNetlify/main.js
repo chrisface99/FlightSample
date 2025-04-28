@@ -1,7 +1,7 @@
-const FILE_URL = 'http://localhost:7003/extension/flights.json'
+const FILE_URL = 'https://celebrated-tarsier-547bd3.netlify.app/flightsnetlify/flights.json'
 const OPENWEATHER_API_KEY = 'd34469173c876dc3e734f40f63a5aa5c'
 const OPENWEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?units=metric&lang=pl&q='
-const ARRIVAL_FILE_URL = 'http://localhost:7003/extension/flights.json'; // New URL for arrivals
+const ARRIVAL_FILE_URL = 'https://celebrated-tarsier-547bd3.netlify.app/flightsnetlify/flights.json'; 
 
 const departureTableBody = document.querySelector('#departure-table tbody')
 const arrivalTableBody = document.querySelector('#arrival-table tbody')
