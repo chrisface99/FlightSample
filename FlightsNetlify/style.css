@@ -1,0 +1,207 @@
+@font-face {
+    font-family: "SamsungRegular";
+    src: url("./fonts/SamsungSharpSans-Regular.ttf");
+  }
+  
+  @font-face {
+    font-family: "SamsungMedium";
+    src: url("./fonts/SamsungSharpSans-Medium.ttf");
+  }
+  
+  @font-face {
+    font-family: "SamsungBold";
+    src: url("./fonts/SamsungSharpSans-Bold.ttf");
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: "SamsungRegular", Arial, sans-serif;
+    background-color: #1c222c;
+    color: #fff;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    color: white;
+    padding: 10px 20px;
+    height: 80px;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  #airport-code {
+    font-family: "SamsungBold", Arial, sans-serif;
+    font-size: 3rem;
+    color: #ffd700;
+  }
+  
+  .header-center {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 10px;
+  }
+  
+  #current-time {
+    font-family: "SamsungBold", Arial, sans-serif;
+    font-size: 3rem;
+  }
+  
+  #date-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    font-size: 1rem;
+    color: #8a8a8a;
+  }
+  
+  #current-day {
+    font-family: "SamsungMedium", Arial, sans-serif;
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .weather-display {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .weather-icon {
+    font-size: 2rem;
+  }
+  
+  #current-temp {
+    font-family: "SamsungBold", Arial, sans-serif;
+    font-size: 2.5rem;
+  }
+  
+  #weather-condition {
+    font-size: 1rem;
+    color: #8a8a8a;
+  }
+  
+  main {
+    padding: 0;
+  }
+  
+  .flights-container {
+    display: flex;
+    width: 100%;
+  }
+  
+  .flight-section {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  #departures-section {
+    background-color: #1c222c;
+  }
+  
+  #arrivals-section {
+    background-color: #252d3b;
+  }
+  
+  .section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+    border-bottom: 2px solid #ffd700;
+    padding-bottom: 10px;
+  }
+  
+  .flight-icon {
+    font-size: 1.8rem;
+    color: #ffd700;
+  }
+  
+  #arrivals-section .flight-icon {
+    transform: rotate(90deg); 
+  }
+  
+  h2 {
+    font-family: "SamsungBold", Arial, sans-serif;
+    font-size: 1.8rem;
+    color: #fff;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th {
+    font-family: "SamsungMedium", Arial, sans-serif;
+    text-align: left;
+    padding: 10px 15px;
+    color: #8a8a8a;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #333;
+  }
+  
+  tbody tr {
+    height: 50px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+  }
+  
+  #departure-table tbody tr {
+    background-color: #111419;
+  }
+  
+  #arrival-table tbody tr {
+    background-color: #1e2633;
+  }
+  
+  td {
+    padding: 15px;
+    font-size: 1.1rem;
+  }
+  
+  /* Gate styling */
+  td:nth-child(4) {
+    font-family: "SamsungBold", Arial, sans-serif;
+    color: #ffd700;
+  }
+  
+  /* Status styling */
+  .on-time {
+    color: #fff;
+  }
+  
+  .boarding {
+    color: #4CAF50;
+  }
+  
+  .delayed {
+    color: #FF9800;
+  }
+  
+  .cancelled {
+    color: #F44336;
+  }
+
+  .airline-icon {
+    width: 60px;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }

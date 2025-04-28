@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airport Flight Information</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <div id="airport-code">WAW</div>
+    </div>
+    <div class="header-center">
+      <div id="current-time">00:00</div>
+      <div id="date-info">
+        <span id="current-day">Friday</span>
+        <span id="current-date">April 25, 2025</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="weather-display">
+        <span class="weather-icon">☀️</span>
+        <span id="current-temp">61°</span>
+        <span id="weather-condition">Overcast</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="flights-container">
+      <div class="flight-section" id="departures-section">
+        <div class="section-header">
+          <div class="flight-icon">✈️</div>
+          <h2>DEPARTURES</h2>
+        </div>
+        <table id="departure-table">
+          <thead>
+            <tr>
+              <th>TIME</th>
+              <th>DESTINATION</th>
+              <th>FLIGHT</th>
+              <th>GATE</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Flight data will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flight-section" id="arrivals-section">
+        <div class="section-header">
+          <div class="flight-icon">✈️</div>
+          <h2>ARRIVALS</h2>
+        </div>
+        <table id="arrival-table">
+          <thead>
+            <tr>
+              <th>TIME</th>
+              <th>ORIGIN</th>
+              <th>FLIGHT</th>
+              <th>GATE</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Flight data will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
