@@ -202,7 +202,7 @@ const statusClasses = ["on-time", "boarding", "delayed", "cancelled"];
 // Fetch airline icon with fallback
 async function fetchAirlineIcon(airlineCode) {
   const primaryUrl = `https://airlinecodes.info/airlinelogos/${airlineCode}.svg`;
-  const fallbackUrl = `https://celebrated-tarsier-547bd3.netlify.app/flightsnetlify/icons/${airlineCode}.svg`;
+  const fallbackUrl = `./icons/${airlineCode}.svg`; // Updated to use the local icons folder
 
   try {
     const response = await fetch(primaryUrl);
