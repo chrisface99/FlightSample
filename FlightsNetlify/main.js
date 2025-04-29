@@ -9,14 +9,89 @@ const arrivalTableBody = document.querySelector('#arrival-table tbody')
 // Weather for current location (WAW)
 const AIRPORT_LOCATION = 'WARSAW'
 
-function getVisibleRows() {
-  const rowHeight = 50;
-  const headerHeight = 150;
-  const availableHeight = window.innerHeight - headerHeight;
-  return Math.max(5, Math.floor(availableHeight / rowHeight));
+let userTicker = "Welcome to the Airport Flight Information System!";
+let userTickerDirection = "left"; // "left" or "right"
+let userTickerSpeed = 60; // Speed from 1 (slow) to 100 (fast)
+let userTickerFrequency = 20; // Frequency in seconds to show the default message
+let flightStatusUpdates = []; // Array to store flight status updates
+let showDefaultTicker = false; // Flag to control when to show the default ticker
+
+let rowsCount = 12; // Default number of rows visible
+
+function createTicker() {
+  const ticker = document.createElement("div");
+  ticker.id = "ticker";
+  ticker.innerHTML = `<span id="ticker-text">${userTicker}</span>`;
+  document.body.appendChild(ticker);
+
+  const tickerText = document.getElementById("ticker-text");
+  let position = userTickerDirection === "left" ? window.innerWidth : -tickerText.offsetWidth;
+
+  function moveTicker() {
+    if (userTickerDirection === "left") {
+      position -= userTickerSpeed / 10;
+      if (position < -tickerText.offsetWidth) {
+        position = window.innerWidth;
+        updateTickerText(); // Update ticker text when it loops
+      }
+    } else {
+      position += userTickerSpeed / 10;
+      if (position > window.innerWidth) {
+        position = -tickerText.offsetWidth;
+        updateTickerText(); // Update ticker text when it loops
+      }
+    }
+    tickerText.style.transform = `translateX(${position}px)`;
+    requestAnimationFrame(moveTicker);
+  }
+
+  moveTicker();
 }
 
-const visibleRows = getVisibleRows();
+function updateTickerText() {
+  if (showDefaultTicker) {
+    document.getElementById("ticker-text").textContent = userTicker;
+  } else if (flightStatusUpdates.length > 0) {
+    const update = flightStatusUpdates.shift(); // Get the next update
+    document.getElementById("ticker-text").textContent = update;
+    flightStatusUpdates.push(update); // Re-add it to the end of the array
+  }
+}
+
+function addFlightStatusUpdate(flight, type) {
+  const time = new Date(flight[type].scheduled).toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  const city = getCityNameFromIATA(flight[type === "departure" ? "arrival" : "departure"].iata || "Unknown");
+  const update = `Flight ${flight.flight.iata} ${type === "departure" ? "to" : "from"} ${city} is scheduled at ${time}.`;
+  flightStatusUpdates.push(update);
+}
+
+function startTickerDefaultMessageTimer() {
+  setInterval(() => {
+    showDefaultTicker = true;
+    setTimeout(() => {
+      showDefaultTicker = false;
+    }, 5000); // Show the default message for 5 seconds
+  }, userTickerFrequency * 1000);
+}
+
+// Example: Update iataCodeCity dynamically
+iataCodeCity = "JFK"; // Change to a different airport code if needed
+document.getElementById("airport-code").textContent = iataCodeCity;
+
+function adjustVisibleRows() {
+  const rowHeight = 50;
+  const headerHeight = 150;
+  const tickerHeight = 50; // Reserve space for the ticker
+  const availableHeight = window.innerHeight - headerHeight - tickerHeight;
+  return Math.min(rowsCount, Math.max(5, Math.floor(availableHeight / rowHeight)));
+}
+
+// Update visibleRows calculation
+const visibleRows = adjustVisibleRows();
 
 // Update clock and date
 function updateClock() {
@@ -127,7 +202,7 @@ const statusClasses = ["on-time", "boarding", "delayed", "cancelled"];
 // Fetch airline icon with fallback
 async function fetchAirlineIcon(airlineCode) {
   const primaryUrl = `https://airlinecodes.info/airlinelogos/${airlineCode}.svg`;
-  const fallbackUrl = `./icons/${airlineCode}.svg`;
+  const fallbackUrl = `https://celebrated-tarsier-547bd3.netlify.app/flightsnetlify/icons/${airlineCode}.svg`;
 
   try {
     const response = await fetch(primaryUrl);
@@ -214,6 +289,8 @@ async function updateDepartureTable(flights) {
     const randomStatusIndex = Math.floor(Math.random() * statusOptions.length);
     const status = statusOptions[randomStatusIndex];
     const statusClass = statusClasses[randomStatusIndex];
+
+    addFlightStatusUpdate(flight, "departure"); // Add status update for departures
 
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -340,6 +417,8 @@ async function updateArrivalTable(flights) {
     const status = statusOptions[randomStatusIndex];
     const statusClass = statusClasses[randomStatusIndex];
 
+    addFlightStatusUpdate(flight, "arrival"); // Add status update for arrivals
+
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${flightTime}</td>
@@ -358,6 +437,8 @@ async function updateArrivalTable(flights) {
 
 // Initialize
 async function init() {
+  createTicker(); // Add ticker to the page
+  startTickerDefaultMessageTimer(); // Start the timer for the default ticker message
   updateClock();
   setInterval(updateClock, 1000);
   

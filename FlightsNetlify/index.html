@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Airport Flight Information</title>
-  <link rel="stylesheet" href="https://celebrated-tarsier-547bd3.netlify.app/flightsnetlify/style.css">
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <header>
     <div class="header-left">
-      <div id="airport-code">WAW</div>
+      <div id="airport-code"></div>
     </div>
     <div class="header-center">
       <div id="current-time">00:00</div>
@@ -74,5 +74,9 @@
   </main>
 
   <script src="main.js"></script>
+  <script>
+    let iataCodeCity = "WAW"; // Default value
+    document.getElementById("airport-code").textContent = iataCodeCity;
+  </script>
 </body>
 </html>
