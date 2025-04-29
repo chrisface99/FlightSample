@@ -124,6 +124,27 @@ const gateCache = {};
 const statusOptions = ["On Time", "Boarding", "Delayed", "Cancelled"];
 const statusClasses = ["on-time", "boarding", "delayed", "cancelled"];
 
+// Fetch airline icon with fallback
+async function fetchAirlineIcon(airlineCode) {
+  const primaryUrl = `https://airlinecodes.info/airlinelogos/${airlineCode}.svg`;
+  const fallbackUrl = `./icons/${airlineCode}.svg`;
+
+  try {
+    const response = await fetch(primaryUrl);
+    if (response.ok) {
+      return primaryUrl;
+    } else {
+      const fallbackResponse = await fetch(fallbackUrl);
+      if (fallbackResponse.ok) {
+        return fallbackUrl;
+      }
+    }
+  } catch (error) {
+    console.error(`Error fetching airline icon for ${airlineCode}:`, error);
+  }
+  return ''; // Return an empty string if both URLs fail
+}
+
 // Update departure table
 async function updateDepartureTable(flights) {
   const currentTime = new Date();
@@ -176,7 +197,7 @@ async function updateDepartureTable(flights) {
 
     // Airline icon logic
     const airlineCode = flight.flight.iata.slice(0, 2); // Extract airline code
-    const airlineIcon = `https://airlinecodes.info/airlinelogos/${airlineCode}.svg`; // Replace with actual icon URL logic
+    const airlineIcon = await fetchAirlineIcon(airlineCode);
 
     // Check if gate is available, otherwise assign cached gate or new random gate
     if (flight.departure.gate) {
@@ -301,7 +322,7 @@ async function updateArrivalTable(flights) {
 
     // Airline icon logic
     const airlineCode = flight.flight.iata ? flight.flight.iata.slice(0, 2) : "XX";
-    const airlineIcon = `https://airlinecodes.info/airlinelogos/${airlineCode}.svg`;
+    const airlineIcon = await fetchAirlineIcon(airlineCode);
 
     // Check if gate is available, otherwise assign cached gate or new random gate
     if (flight.arrival.gate) {
